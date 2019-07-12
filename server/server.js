@@ -25,7 +25,7 @@ mongoose.connect(mongoDatabase, {
 );
 
 // All the express routes
-const userRoutes = require('../routes/user.route');
+const userRoutes = require('../routes/users');
 
 // Conver incoming data to JSON format
 app.use(bodyParser.json());
