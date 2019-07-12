@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// List of columns for User schema
-let User = new Schema({
+// List of columns for user schema
+let user = new Schema({
     userid: {
         type: Number,
         default: 1
@@ -27,4 +27,4 @@ let User = new Schema({
     collection: 'users'
 });
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('user', user);
