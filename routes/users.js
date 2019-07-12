@@ -47,7 +47,7 @@ else {
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
   user.email = req.body.email;
-  user.phone = req.body.phone;
+  user.password = req.body.password;
   user.save().then(emp => {
     res.json('user Updated Successfully');
     })

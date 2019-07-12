@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 
 // List of columns for user schema
 let user = new Schema({
-    userid: {
-        type: Number,
-        default: 1
-    },
     firstName: {
         type: String,
         default: ""
