@@ -1,5 +1,8 @@
 let express = require('express');
 let app = express();
+let mongoose = require('mongoose');
+
+// Connect to DB
 
 // Import Routes
 let authRoute = require('./routes/auth');
