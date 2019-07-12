@@ -2,18 +2,17 @@ let router = require('express').Router();
 let User = require('../models/user');
 
 router.post('/signup', async (req, res) => {
-    let user = new User ({
+    let user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password
 
     });
-    try{
+    try {
         let saveduser = await user.save();
         res.send(saveduser);
-    }
-    catch(err) {
+    } catch (err) {
         res.status(400).send(err);
     }
 });

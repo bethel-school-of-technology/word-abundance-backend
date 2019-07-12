@@ -9,7 +9,8 @@ let authRoute = require('./routes/auth');
 dotenv.config();
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, 
+mongoose.connect(process.env.DB_CONNECT, 
+    {useNewUrlParser: true},
     () => console.log('connected to db')
 );
 
@@ -19,4 +20,4 @@ app.use(express.json());
 // Route Middlewares
 app.use('/api/user', authRoute);
 
-app.listen(3000, () => console.log("Server Up and Running"))
+app.listen(6000, () => console.log("Server Up and Running"))
