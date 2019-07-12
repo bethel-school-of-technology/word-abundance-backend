@@ -1,3 +1,10 @@
-let router= require('express').Router();
+let router = require('express').Router();
 
-module.exports = router;
+router.post('/signup', (req, res) => {
+    res.send('Success! You are now registered!');
+});
+
+router.post('login', (req, res) => {
+    res.send('Logged in');
+});
+    module.exports = router;
