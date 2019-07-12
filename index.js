@@ -1,11 +1,12 @@
 let express = require('express');
 let app = express();
+let dotenv = require('dotenv');
 let mongoose = require('mongoose');
 
+dotenv.config();
+
 // Connect to DB
-mongoose.connect(
-    'mongodb+srv://teamadmin:Password12@cluster0-mkdit.mongodb.net/test?retryWrites=true&w=majority',
-    { useNewUrlParser: true }, 
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, 
     () => console.log('connected to db')
 );
 
