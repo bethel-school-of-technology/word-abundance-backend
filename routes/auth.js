@@ -7,4 +7,4 @@ router.post('/signup', (req, res) => {
 router.post('login', (req, res) => {
     res.send('Logged in');
 });
-    module.exports = router;
+module.exports = router;
