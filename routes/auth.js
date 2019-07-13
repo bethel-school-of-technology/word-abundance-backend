@@ -4,6 +4,10 @@ let User = require('../models/user');
 // Validation 
 let Joi = require('@hapi/joi');
 
+router.get('/', (req, res) => {
+    res.send('We are on home');
+});
+
 router.post('/signup', async (req, res) => {
     let user = new User({
         firstName: req.body.firstName,
