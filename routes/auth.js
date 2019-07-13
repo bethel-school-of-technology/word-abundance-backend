@@ -1,6 +1,9 @@
 let router = require('express').Router();
 let User = require('../models/user');
 
+// Validation 
+let Joi = require('@hapi/joi');
+
 router.post('/signup', async (req, res) => {
     let user = new User({
         firstName: req.body.firstName,
