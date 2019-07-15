@@ -4,6 +4,14 @@ let User = require('../models/user');
 // Validation 
 let Joi = require('@hapi/joi');
 
+let JoiSchema = {
+    firstName: Joi.string().min(6).required(),
+    lastName: Joi.string().min(6).required(),
+    email: Joi.string().min(6).required(),
+    password: Joi.string().min(6).required()
+    
+}
+
 router.get('/', (req, res) => {
     res.send('We are on home');
 });
