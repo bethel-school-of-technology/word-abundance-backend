@@ -1,22 +1,17 @@
 let router = require('express').Router();
 let User = require('../models/user');
-
-// Validation 
 let Joi = require('@hapi/joi');
-
-let JoiSchema = {
-    firstName: Joi.string().min(6).required(),
-    lastName: Joi.string().min(6).required(),
-    email: Joi.string().min(6).required(),
-    password: Joi.string().min(6).required()
-    
-}
 
 router.get('/', (req, res) => {
     res.send('We are on home');
 });
 
 router.post('/signup', async (req, res) => {
+
+// LETS VALIDATE THE DATA BEFORE WE ADD A USER TO DB
+    let {error} = Joi.validate(req.body,schema);
+    if (error) return res.status(400).send(error.details[0].message);
+
     let user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
