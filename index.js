@@ -9,6 +9,7 @@ app.get('/', (req, res) => {
 
 // Import Routes
 let authRoute = require('./routes/auth');
+let postsRoute = require('./routes/posts')
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 
 // Route Middlewares
 app.use('/api/user', authRoute);
+app.use('/api/posts', postsRoute)
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`))
