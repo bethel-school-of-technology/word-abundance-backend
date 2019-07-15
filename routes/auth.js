@@ -19,6 +19,7 @@ router.post('/signup', async (req, res) => {
 
 // Hash Passwords
     let salt = await bcrypt.gentSalt(10);
+    let hashPassword = await bcrypt.hash(req.body.password, salt);
 
 // Create a New User
     let user = new User({
