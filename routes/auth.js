@@ -1,7 +1,7 @@
 let router = require('express').Router();
 let User = require('../models/user');
 let {signupValidation}  = require('../validation')
-let bcrypt = require('bcryptjs')
+let bcrypt = require('bcrypt')
 
 router.get('/', (req, res) => {
     res.send('We are on home');
@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
     });
     try {
         let saveduser = await user.save();
-        res.send(saveduser);
+        res.send(user = user.id);
     } catch (err) {
         res.status(400).send(err);
     }
