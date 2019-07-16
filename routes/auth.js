@@ -14,7 +14,7 @@ router.post('/signup', async (req, res) => {
     let {error} = signupValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-// Checker if user is already in database
+// Check if user is already in database
     let emailExist = await User.findOne({email: req.body.email});
     if (emailExist) return res.status(400).send('Email Already Exists');
 
