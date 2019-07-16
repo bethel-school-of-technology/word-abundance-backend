@@ -18,6 +18,7 @@ var usersRouter = require('./routes/users');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const serviceRoutes = require('./api/routes/services');
+const serviceOrderRoutes = require('./api/routes/serviceorders');
 
 
 const morgan = require('morgan');
@@ -54,6 +55,7 @@ app.use('/users', usersRouter);
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
 app.use('/services', serviceRoutes);
+app.use('/serviceorders', serviceOrderRoutes);
 
 
 
