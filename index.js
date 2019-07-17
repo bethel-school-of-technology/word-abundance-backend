@@ -8,7 +8,8 @@ app.get('/', (req, res) => {
 });
 
 // Import Routes
-let authRoute = require('./routes/auth');
+let signUpRoute = require('./routes/signUp');
+let logInRoute = require('./routes/login')
 let postRoute = require('./routes/posts');
 
 dotenv.config();
@@ -23,7 +24,8 @@ mongoose.connect(process.env.DB_CONNECT,
 app.use(express.json());
 
 // Route Middlewares
-app.use('/api/user', authRoute);
+app.use('/api/user/signup', signUpRoute);
+app.use('/api/user/login', logInRoute);
 app.use('/api/posts', postRoute);
 
 let port = process.env.PORT || 3000;
