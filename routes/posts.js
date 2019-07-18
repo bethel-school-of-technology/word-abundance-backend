@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
 });
 
 //Specific Post
-
 router.get('/:postId', async (req, res) => {
     try {
         let post = await Post.findById(req.params.postId);
