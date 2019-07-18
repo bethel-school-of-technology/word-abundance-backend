@@ -6,6 +6,7 @@ let Post = require('../models/post');
 router.get('/', async (req, res) => {
     try {
         let posts = await Post.find();
+        res.json(posts);
     } catch (err) {
         res.json({
             message: err
@@ -53,7 +54,9 @@ router.delete('/:postId', async (req, res) => {
 //Update a Specific Post
 router.patch('/:postId', async (req, res) => {
     try {
-        let updatedPost = await Post.updateOne({_id: req.params.postId})
+        let updatedPost = await Post.updateOne({_id: req.params.postId}, 
+            {$set: {title: req.body.title}}
+            );
         res.json(updatedPost);
     } catch (err) {
         res.json({message:err})
