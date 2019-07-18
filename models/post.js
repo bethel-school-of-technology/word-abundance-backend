@@ -13,6 +13,12 @@ let postSchema = new mongoose.Schema({
         min: 6,
         max: 255
     },
+    postBody: {
+        type: String,
+        required: true,
+        min: 6,
+        max: 255
+    },
     date: {
         type: Date,
         default: Date.now
