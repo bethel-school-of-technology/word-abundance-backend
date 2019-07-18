@@ -3,6 +3,7 @@ let app = express();
 let dotenv = require('dotenv');
 let mongoose = require('mongoose');
 let bodyParser = require('body-parser')
+let cors = require('cors')
 
 app.get('/', (req, res) => {
     res.send('We are on home');
@@ -24,6 +25,7 @@ mongoose.connect(process.env.DB_CONNECT,
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cors());
 
 // Route Middlewares
 app.use('/api/user/signup', signUpRoute);
