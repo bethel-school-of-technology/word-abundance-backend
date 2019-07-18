@@ -32,4 +32,38 @@ router.post('/', async (req, res) => {
         res.status(400).send(err);
     }
 });
+
+//Delete a Specific Post
+router.delete('/:userId', async (req, res) => {
+    try {
+        let removedPost = await Post.remove({_id: req.params.postId})
+        res.json(removedPost);
+    } catch (err) {
+        res.json({message:err})
+    }
+})
+
+//Update a User by Id (Email)
+router.patch('/:userId/email', async (req, res) => {
+    try {
+        let updatedUser = await Post.updateOne({_id: req.params.userId}, 
+            {$set: {email: req.body.email}}
+            );
+        res.json(updatedUser);
+    } catch (err) {
+        res.json({message:err})
+    }
+})
+
+//Update a User by Id (Password)
+router.patch('/:userId/password', async (req, res) => {
+    try {
+        let updatedUser = await Post.updateOne({_id: req.params.userId}, 
+            {$set: {password: req.body.password}}
+            );
+        res.json(updatedUser);
+    } catch (err) {
+        res.json({message:err})
+    }
+})
 module.exports = router;
