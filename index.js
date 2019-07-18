@@ -2,6 +2,7 @@ let express = require('express');
 let app = express();
 let dotenv = require('dotenv');
 let mongoose = require('mongoose');
+let bodyParser = require('body-parser')
 
 app.get('/', (req, res) => {
     res.send('We are on home');
@@ -22,11 +23,12 @@ mongoose.connect(process.env.DB_CONNECT,
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.json());
 
 // Route Middlewares
 app.use('/api/user/signup', signUpRoute);
 app.use('/api/user/login', logInRoute);
-app.use('/api/posts', postRoute);
+app.use('/posts', postRoute);
 
 let port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}`))
