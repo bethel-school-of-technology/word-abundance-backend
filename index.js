@@ -1,4 +1,4 @@
-let express = require('express');
+/* let express = require('express');
 let app = express();
 let dotenv = require('dotenv');
 let mongoose = require('mongoose');
@@ -33,4 +33,4 @@ app.use('/api/user/login', logInRoute);
 app.use('/posts', postRoute);
 
 let port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}`))
+app.listen(port, () => console.log(`Listening on port ${port}`)) */
