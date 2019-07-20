@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 
+
 mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '@abundant-2iz3d.mongodb.net/test?retryWrites=true&w=majority',
   {
     useNewUrlParser: true
@@ -30,6 +31,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use('/uploads', express.static('uploads'));
+
 app.use(morgan('dev'));
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -50,7 +53,6 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
 
 // Routes that should handle requests
 app.use('/products', productRoutes);

@@ -1,12 +1,46 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
+const multer = require('multer');
 const Service = require("../models/service");
+
+// Adding an image to services
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function (req, file, cb) {
+    // cb(null, Date.now() + file.originalname)
+    cb(null, new Date().toISOString().replace(/:|\./g,'') + ' - ' + file.originalname);;
+  }
+});
+const fileFilter = (req, file, cb) => {
+  //reject an image
+  if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false), ({
+      message: 'Image must be .jpg or .png'
+    })
+  }
+};
+const upload = multer({
+  storage:storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+
+
+
+
+
+
 
 router.get("/", (req, res, next) => {
   Service.find()
-    .select("name hourlyrate _id")
+    .select("name hourlyrate _id serviceImage")
     .exec()
     .then(docs => {
       const response = {
@@ -14,6 +48,7 @@ router.get("/", (req, res, next) => {
         products: docs.map(doc => {
           return {
             name: doc.name,
+            serviceImage: doc.serviceImage,
             hourlyrate: doc.hourlyrate,
             _id: doc._id,
             request: {
@@ -39,11 +74,12 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", upload.single('serviceImage'), (req, res, next) => {
   const service = new Service({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    hourlyrate: req.body.hourlyrate
+    hourlyrate: req.body.hourlyrate,
+    serviceImage: req.file.path
   });
   service
     .save()
@@ -73,7 +109,7 @@ router.post("/", (req, res, next) => {
 router.get("/:serviceId", (req, res, next) => {
   const id = req.params.serviceId;
   Product.findById(id)
-    .select('name hourlyrate _id')
+    .select('name hourlyrate _id serviceImage')
     .exec()
     .then(doc => {
       console.log("From database", doc);
