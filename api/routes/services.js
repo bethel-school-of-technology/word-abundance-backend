@@ -53,7 +53,7 @@ router.get("/", (req, res, next) => {
             _id: doc._id,
             request: {
               type: "GET",
-              url: "http://localhost:3000/services/" + doc._id
+              url: "http://localhost:3001/services/" + doc._id
             }
           };
         })
@@ -93,7 +93,7 @@ router.post("/", upload.single('serviceImage'), (req, res, next) => {
             _id: result._id,
             request: {
                 type: 'GET',
-                url: "http://localhost:3000/services/" + result._id
+                url: "http://localhost:3001/services/" + result._id
             }
         }
       });
@@ -118,7 +118,7 @@ router.get("/:serviceId", (req, res, next) => {
             product: doc,
             request: {
                 type: 'GET',
-                url: 'http://localhost:3000/services'
+                url: 'http://localhost:3001/services'
             }
         });
       } else {
@@ -146,7 +146,7 @@ router.patch("/:serviceId", (req, res, next) => {
           message: 'Service updated',
           request: {
               type: 'GET',
-              url: 'http://localhost:3000/services/' + id
+              url: 'http://localhost:3001/services/' + id
           }
       });
     })
@@ -167,7 +167,7 @@ router.delete("/:serviceId", (req, res, next) => {
           message: 'Service deleted',
           request: {
               type: 'POST',
-              url: 'http://localhost:3000/services',
+              url: 'http://localhost:3001/services',
               body: { name: 'String', hourlyrate: 'Number' }
           }
       });
