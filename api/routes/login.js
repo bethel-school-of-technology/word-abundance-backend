@@ -1,8 +1,8 @@
-let router = require('express').Router();
-let User = require('../models/user');
-let jwt = require('jsonwebtoken');
-let {loginValidation}  = require('../validation/validation')
-let bcrypt = require('bcrypt')
+const router = require('express').Router();
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const {loginValidation}  = require('../validation/validation')
+const bcrypt = require('bcrypt');
 
 // Login
 router.post('/', async (req, res) => {

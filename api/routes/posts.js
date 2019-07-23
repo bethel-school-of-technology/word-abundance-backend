@@ -1,6 +1,6 @@
-let router = require('express').Router();
-let verify = require('../validation/verifyToken');
-let Post = require('../models/post');
+const router = require('express').Router();
+const verify = require('../validation/verifyToken');
+const Post = require('../models/post');
 
 //Get All Posts
 router.get('/', async (req, res) => {
