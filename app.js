@@ -7,7 +7,7 @@ let mongoose = require('mongoose');
 let bodyParser = require('body-parser')
 let cors = require('cors')
 let errorhandler = require('errorhandler')
-let graphqlSchema = require('./api/models/launch')
+// let graphqlSchema = require('./api/models/serviceSearch')
 
 app.get('/', (req, res) => {
   res.send('We are on home');
@@ -46,11 +46,11 @@ function errorNotification (err, str, req) {
 app.use('/user/signup', require('./api/routes/signup'));
 app.use('/user/login', require('./api/routes/login'));
 app.use('/posts', require('./api/routes/posts'));
-app.use('/graphql', graphqlHTTP({
+/* app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
   // rootValue: root,
   graphiql: true,
-}));
+})); */
 
 // Import Routes
 // let logInRoute = require('./routes/login')
