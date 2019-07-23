@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 
+// Error Handler
 if (process.env.NODE_ENV === 'development') {
   // only use in development
   app.use(errorhandler({ log: errorNotification }))

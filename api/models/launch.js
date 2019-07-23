@@ -1,6 +1,6 @@
-let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
+const {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
 
-let LaunchType = new GraphQLObjectType({
+const LaunchType = new GraphQLObjectType({
   name: 'launch',
   fields: () => ({
     flight_number: {
