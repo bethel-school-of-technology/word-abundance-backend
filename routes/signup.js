@@ -1,6 +1,6 @@
 let router = require('express').Router();
 let User = require('../models/user');
-let {signupValidation}  = require('../validation')
+let {signupValidation}  = require('../validation/validation')
 let bcrypt = require('bcrypt')
 
 router.post('/', async (req, res) => {

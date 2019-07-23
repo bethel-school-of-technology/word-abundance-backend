@@ -1,5 +1,3 @@
-let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql')
-// let { buildSchema } = require('graphql');
 let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
 
 let LaunchType = new GraphQLObjectType({
@@ -11,17 +9,17 @@ let LaunchType = new GraphQLObjectType({
     mission_name: {
       type: GraphQLString
     },
-    flight_number: {
+    launch_year: {
       type: GraphQLInt
     },
-    flight_number: {
+    launch_date_localc: {
       type: GraphQLInt
     },
-    flight_number: {
+    launch_success: {
       type: GraphQLInt
     },
-    flight_number: {
-      type: GraphQLInt
+    rocket: {
+      type: RocketType
     },
 
   })
