@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-//Delete a Specific Post
+//Delete a Specific User
 router.delete('/:userId', async (req, res) => {
     try {
         let removedPost = await Post.remove({_id: req.params.postId})

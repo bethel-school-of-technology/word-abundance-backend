@@ -1,5 +1,5 @@
 let router = require('express').Router();
-let verify = require('./verifyToken');
+let verify = require('../validation/verifyToken');
 let Post = require('../models/post');
 
 //Get All Posts
