@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('../models/user');
+const User = require('../model/user');
 const {signupValidation}  = require('../../api/validation/validation');
 const bcrypt = require('bcrypt');
 
@@ -23,7 +23,6 @@ router.post('/', async (req, res) => {
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashedPassword
-
     });
     try {
         let saveduser = await user.save();

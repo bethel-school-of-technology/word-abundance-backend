@@ -44,8 +44,8 @@ function errorNotification (err, str, req) {
 }
 // Route Middlewares
 /* app.use('/users', require('./api/routes/users')) */
-app.use('/user/signup', require('./api/routes/signup'));
-app.use('/user/login', require('./api/routes/login'));
+app.use('/user/signup', require('./user_api/routes/signup'));
+app.use('/user/login', require('./user_api/routes/login'));
 app.use('/posts', require('./api/routes/posts'));
 /* app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
