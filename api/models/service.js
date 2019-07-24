@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/* const mongoose = require('mongoose');
 
 const serviceSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -7,4 +7,4 @@ const serviceSchema = mongoose.Schema({
     serviceImage: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Service', serviceSchema);
+module.exports = mongoose.model('Service', serviceSchema); */

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/* const mongoose = require('mongoose');
 
 const serviceOrderSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -6,4 +6,4 @@ const serviceOrderSchema = mongoose.Schema({
     hourlyrate: { type: Number }
 });
 
-module.exports = mongoose.model('serviceOrder', serviceOrderSchema);
+module.exports = mongoose.model('serviceOrder', serviceOrderSchema); */
