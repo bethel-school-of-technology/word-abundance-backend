@@ -3,7 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const serviceOrder = require("../models/serviceorder");
 const Service = require("../models/service");
-const async = require('async');
+const async = require('../models/async');
 
 
 router.get("/", (res) => {

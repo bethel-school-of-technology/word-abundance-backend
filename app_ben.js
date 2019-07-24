@@ -17,9 +17,9 @@ app.get('/', (req, res) => {
 dotenv.config();
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true},
-  () => console.log('connected to db')
-);
+// mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true},
+//   () => console.log('connected to db')
+// );
 
 
 // Middleware
@@ -71,5 +71,5 @@ app.use('/posts', require('./api/routes/posts'));
   },
 }; */
 
-let port = process.env.PORT || 3001;
+let port = process.env.PORT || 3002;
 app.listen(port, () => console.log(`Server started on port ${port}`))
