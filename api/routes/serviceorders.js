@@ -34,25 +34,17 @@ router.get("/", (res) => {
 });
 
 
-router.post("/", (req, res) => {
-  Service.find(req.params.serviceId)
-    .then(service => {
-      if (!service ) {
-        return res.status(404).json({
-          message: "Service not found"
-        });
-      } else {
-      const order = new serviceOrder({
-        _id: mongoose.Types.ObjectId(),
-        service: req.body.serviceId,
-        hourlyrate: req.body.hourlyrate
-      });
-      return order.save()
-    };
-    })
-    .then(result => {
-      console.log(result);
-      return res.status(201).json({
+router.post('/', async (req, res) => {
+  Service.find(req.params.serviceId);
+
+    let order = new serviceOrder({
+    _id: mongoose.Types.ObjectId(),
+    service: req.body.serviceId,
+    hourlyrate: req.body.hourlyrate
+  });
+  try {
+    let savedorder = await order.save();
+      res.sendStatus(201).json({
         message: "Order stored",
         createdOrder: {
           _id: result._id,
@@ -64,15 +56,57 @@ router.post("/", (req, res) => {
           url: "http://localhost:3001/serviceorders/" + result._id
         }
       });
-    })
-    .catch(err => {
-      console.log(err);
-      return res.status(500).json({
-        message: "Orders not found",
-        error: err
-      });
+      } catch {
+        (err => {
+          console.log(err);
+          return res.status(500).json({
+            message: "Orders not found",
+            error: err
+          });
+        });
+      }
     });
-});
+
+
+// router.post("/", (req, res) => {
+//   Service.find(req.params.serviceId)
+//     .then(service => {
+//       if (!service ) {
+//         return res.status(404).json({
+//           message: "Service not found"
+//         });
+//       } else {
+//       const order = new serviceOrder({
+//         _id: mongoose.Types.ObjectId(),
+//         service: req.body.serviceId,
+//         hourlyrate: req.body.hourlyrate
+//       });
+//       return order.save()
+//     };
+//     })
+//     .then(result => {
+//       console.log(result);
+//       return res.status(201).json({
+//         message: "Order stored",
+//         createdOrder: {
+//           _id: result._id,
+//           service: result.service,
+//           hourlyrate: result.hourlyrate
+//         },
+//         request: {
+//           type: "GET",
+//           url: "http://localhost:3001/serviceorders/" + result._id
+//         }
+//       });
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       return res.status(500).json({
+//         message: "Orders not found",
+//         error: err
+//       });
+//     });
+// });
 
 
 
