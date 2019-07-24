@@ -7,13 +7,14 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "contentful-management": "^5.9.0",
     "cookie-parser": "~1.4.4",
     "date-and-time": "^0.8.1",
     "debug": "~4.1.1",
     "express": "^4.17.1",
     "hbs": "~4.0.4",
     "http-errors": "~1.7.3",
-    "mongoose": "^5.6.4",
+    "mongoose": "^5.6.5",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "sequelize": "^5.10.1"

@@ -5,77 +5,78 @@ const serviceOrder = require("../models/serviceorder");
 const Service = require("../models/service");
 
 
-router.get("/", (req, res, next) => {
-    serviceOrder.find()
-      .select("service hourlyrate _id")
-      .populate("service name")
-      .exec()
-      .then(docs => {
-        res.status(200).json({
-          count: docs.length,
-          orders: docs.map(doc => {
-            return {
-              _id: doc._id,
-              service: doc.service,
-              hourlyrate: doc.hourlyrate,
-              request: {
-                type: "GET",
-                url: "http://localhost:3001/orders/" + doc._id
-              }
-            };
-          })
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
-        });
+router.get("/", (res) => {
+  serviceOrder.find()
+    .select("service hourlyrate _id")
+    .populate("service name")
+    .exec()
+    .then(docs => {
+      res.status(200).json({
+        count: docs.length,
+        orders: docs.map(doc => {
+          return {
+            _id: doc._id,
+            service: doc.service,
+            hourlyrate: doc.hourlyrate,
+            request: {
+              type: "GET",
+              url: "http://localhost:3001/orders/" + doc._id
+            }
+          };
+        })
       });
-  });
-  
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
+});
 
-  router.post("/", (req, res, next) => {
-    Service.findById(req.body.serviceId)
-      .then(service => {
-        if (!service) {
-          return res.status(404).json({
-            message: "Service not found"
-          });
+
+router.post("/", (req, res) => {
+  Service.find(req.params.serviceId)
+    .then(service => {
+      if (!service ) {
+        return res.status(404).json({
+          message: "Service not found"
+        });
+      } else {
+      const order = new serviceOrder({
+        _id: mongoose.Types.ObjectId(),
+        service: req.body.serviceId,
+        hourlyrate: req.body.hourlyrate
+      });
+      return order.save()
+    };
+    })
+    .then(result => {
+      console.log(result);
+      return res.status(201).json({
+        message: "Order stored",
+        createdOrder: {
+          _id: result._id,
+          service: result.service,
+          hourlyrate: result.hourlyrate
+        },
+        request: {
+          type: "GET",
+          url: "http://localhost:3001/serviceorders/" + result._id
         }
-        const order = new serviceOrder({
-          _id: mongoose.Types.ObjectId(),
-          service: req.body.serviceId,
-          hourlyrate: req.body.hourlyrate
-        });
-        return order.save();
-      })
-      .then(result => {
-        console.log(result);
-        res.status(201).json({
-          message: "Order stored",
-          createdOrder: {
-            _id: result._id,
-            service: result.service,
-            hourlyrate: result.hourlyrate
-          },
-          request: {
-            type: "GET",
-            url: "http://localhost:3001/orders/" + result._id
-          }
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-            message: "Orders not found",
-          error: err
-        });
       });
-  });
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(500).json({
+        message: "Orders not found",
+        error: err
+      });
+    });
+});
 
 
 
-router.get("/:orderId", (req, res, next) => {
+router.get("/:orderId", (req, res) => {
   serviceOrder.findById(req.params.orderId)
     .exec()
     .then(order => {
@@ -99,7 +100,7 @@ router.get("/:orderId", (req, res, next) => {
     });
 });
 
-router.delete("/:orderId", (req, res, next) => {
+router.delete("/:orderId", (req, res) => {
   serviceOrder.remove({ _id: req.params.orderId })
     .exec()
     .then(result => {
@@ -108,7 +109,7 @@ router.delete("/:orderId", (req, res, next) => {
         request: {
           type: "POST",
           url: "http://localhost:3001/orders",
-          body: { productId: "ID", serviceId: "ID", hourlyrate: "Number", quantity: "Number" }
+          body: { serviceId: "ID", hourlyrate: "Number" }
         }
       });
     })

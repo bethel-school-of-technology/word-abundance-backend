@@ -4,55 +4,22 @@ const mongoose = require("mongoose");
 const multer = require('multer');
 const Product = require("../models/product");
 
-
-
-
-// Adding an image to products
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/');
-  },
-  filename: function (req, file, cb) {
-    // cb(null, Date.now() + file.originalname)
-    cb(null, new Date().toISOString().replace(/:|\./g,'') + ' - ' + file.originalname);;
-  }
-});
-const fileFilter = (req, file, cb) => {
-  //reject an image
-  if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(null, false), ({
-      message: 'Image must be .jpg or .png'
-    })
-  }
-};
-const upload = multer({
-  storage:storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  },
-  fileFilter: fileFilter
-});
-
-
-
-
-
 // Find all products
 router.get("/", (req, res, next) => {
   Product.find()
-    .select("name price _id productImage")
+    .select("_id name price quantity instock productImage")
     .exec()
     .then(docs => {
       const response = {
         count: docs.length,
         products: docs.map(doc => {
           return {
-            name: doc.name,
-            productImage: doc.productImage,
-            price: doc.price,
             _id: doc._id,
+            name: doc.name,
+            price: doc.price,
+            quantity: doc.quantity,
+            instock: doc.instock,
+            productImage: doc.productImage,
             request: {
               type: "GET",
               url: "http://localhost:3001/products/" + doc._id
@@ -77,6 +44,41 @@ router.get("/", (req, res, next) => {
 });
 
 
+
+// Adding an image to products
+const storage = multer.diskStorage({
+  destination: function (cb) {
+    cb(null, './uploads/');
+  },
+  filename: function (file, cb) {
+    // cb(null, Date.now() + file.originalname)
+    cb(null, new Date().toISOString().replace(/:|\./g,'') + ' - ' + file.originalname);;
+  }
+});
+const fileFilter = (file, cb) => {
+  //reject an image
+  if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false), ({
+      message: 'Image must be .jpg or .png'
+    })
+  }
+};
+const upload = multer({
+  storage:storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+
+
+
+
+
+
+
 // Create products
 router.post("/", upload.single('productImage'), (req, res, next) => {
   console.log(req.file);
@@ -84,6 +86,8 @@ router.post("/", upload.single('productImage'), (req, res, next) => {
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     price: req.body.price,
+    quantity: req.body.quantity,
+    instock: req.body.instock,
     productImage: req.file.path
   });
   product
@@ -93,9 +97,11 @@ router.post("/", upload.single('productImage'), (req, res, next) => {
       res.status(201).json({
         message: "Created product successfully",
         createdProduct: {
+          _id: result._id,
           name: result.name,
           price: result.price,
-          _id: result._id,
+          quantity: result.quantity,
+          instock: result.instock,
           request: {
             type: 'GET',
             url: "http://localhost:3001/products/" + result._id

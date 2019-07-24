@@ -40,17 +40,17 @@ const upload = multer({
 
 router.get("/", (req, res, next) => {
   Service.find()
-    .select("name hourlyrate _id serviceImage")
+    .select("_id name hourlyrate serviceImage")
     .exec()
     .then(docs => {
       const response = {
         count: docs.length,
         products: docs.map(doc => {
           return {
-            name: doc.name,
-            serviceImage: doc.serviceImage,
-            hourlyrate: doc.hourlyrate,
             _id: doc._id,
+            name: doc.name,
+            hourlyrate: doc.hourlyrate,
+            serviceImage: doc.serviceImage,
             request: {
               type: "GET",
               url: "http://localhost:3001/services/" + doc._id
@@ -88,9 +88,9 @@ router.post("/", upload.single('serviceImage'), (req, res, next) => {
       res.status(201).json({
         message: "Created service successfully",
         createdService: {
+            _id: result._id,
             name: result.name,
             hourlyrate: result.hourlyrate,
-            _id: result._id,
             request: {
                 type: 'GET',
                 url: "http://localhost:3001/services/" + result._id
@@ -108,8 +108,8 @@ router.post("/", upload.single('serviceImage'), (req, res, next) => {
 
 router.get("/:serviceId", (req, res, next) => {
   const id = req.params.serviceId;
-  Product.findById(id)
-    .select('name hourlyrate _id serviceImage')
+  Service.findById(id)
+    .select('_id name hourlyrate serviceImage')
     .exec()
     .then(doc => {
       console.log("From database", doc);
