@@ -3,26 +3,33 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node app.js"
   },
   "dependencies": {
+    "@hapi/joi": "^15.1.0",
     "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "~1.4.4",
     "contentful-management": "^5.9.0",
     "cors": "^2.8.5",
     "date-and-time": "^0.8.1",
     "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
     "express": "~4.16.0",
+    "express-graphql": "^0.9.0",
+    "graphql": "^14.4.2",
     "hbs": "~4.0.1",
     "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4",
     "morgan": "~1.9.0",
     "multer": "^1.4.2",
     "sequelize": "^4.43.0"
-    
   },
   "devDependencies": {
+    "errorhandler": "^1.5.1",
+    "node-notifier": "^5.4.0",
     "nodemon": "^1.19.1"
   },
   "main": "app.js",
