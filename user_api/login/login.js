@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../model/user');
 const jwt = require('jsonwebtoken');
-const {loginValidation}  = require('../../api/validation/validation')
+const {loginValidation}  = require('./LoginValidation')
 const bcrypt = require('bcrypt');
 
 // Login
@@ -21,9 +21,12 @@ router.post('/', async (req, res) => {
     //Create JWT Token and assign a token
     let token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send(token);
-
-  /*   res.send('Logged In') */
 });
-module.exports = router;
+
 
 // Logout
+router.post('/logout', function(req, res){
+    req.logOut();
+});
+
+module.exports = router;
