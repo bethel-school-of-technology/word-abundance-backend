@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('../model/user');
+const User = require('../model/userSchema');
 const {signupValidation}  = require('./SignUpValidation');
 const bcrypt = require('bcrypt');
 

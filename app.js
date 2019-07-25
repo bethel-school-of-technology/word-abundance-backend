@@ -16,9 +16,11 @@ app.get('/', (req, res) => {
 dotenv.config();
 
 // Connect to DB
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true},
-  () => console.log('connected to db')
-);
+mongoose.connect(process.env.DB_CONNECT, 
+  { promiseLibrary: require('bluebird'), 
+    useNewUrlParser: true })
+  .then(() =>  console.log('connection successful'))
+  .catch((err) => console.error(err));
 
 
 // Middleware
@@ -41,9 +43,9 @@ function errorNotification (err, str, req) {
   })
 }
 // Route Middlewares
-app.use('/user/signup', require('./user_api/routes/signup'));
-app.use('/user/login', require('./user_api/routes/login'));
-app.use('/posts', require('./api/routes/posts'));
+app.use('/user/signup', require('./user_api/signup/signup'));
+app.use('/user/login', require('./user_api/login/login'));
+app.use('/posts', require('./post_api/posts'));
 /* app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
   // rootValue: root,

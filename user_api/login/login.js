@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('../model/user');
+const User = require('../model/userSchema');
 const jwt = require('jsonwebtoken');
 const {loginValidation}  = require('./LoginValidation')
 const bcrypt = require('bcrypt');
@@ -27,6 +27,8 @@ router.post('/', async (req, res) => {
 // Logout
 router.post('/logout', function(req, res){
     req.logOut();
+    res.send("logged out", 401);
+
 });
 
 module.exports = router;
