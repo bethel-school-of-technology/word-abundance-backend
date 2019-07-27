@@ -11,7 +11,7 @@ exports.get_all_serviceorders = (req, res, next) => {
       .then(docs => {
         res.status(200).json({
           count: docs.length,
-          orders: docs.map(doc => {
+          serviceorders: docs.map(doc => {
             return {
               _id: doc._id,
               service: doc.service,
@@ -33,7 +33,7 @@ exports.get_all_serviceorders = (req, res, next) => {
 
   // Create service order
   exports.create_serviceorder = (req, res, next ) => {
-    Service.find(req.body.serviceId)
+    Service.findById(req.body.serviceId)
       .then(service => {
         if (!service ) {
           return res.status(404).json({

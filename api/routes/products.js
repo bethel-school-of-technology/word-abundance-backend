@@ -3,6 +3,7 @@ const router = new express.Router();
 const multer = require('multer');
 const ProductsController = require('../controllers/products')
 
+
 // Multer Middleware
 // Adding an image to products
 const storage = multer.diskStorage({
@@ -31,6 +32,8 @@ const upload = multer({
   },
   fileFilter: fileFilter
 });
+
+
 
 // Create products
 router.post("/", upload.single('productImage'), ProductsController.create_product);
