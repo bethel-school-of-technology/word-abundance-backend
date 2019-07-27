@@ -18,9 +18,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const productRoutes = require('./api/routes/products');
-const orderRoutes = require('./api/routes/orders');
 const serviceRoutes = require('./api/routes/services');
-const serviceOrderRoutes = require('./api/routes/serviceorders'); 
+const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/users');
+const signupRoutes = require('./api/routes/signup');
+const loginRoutes = require('./api/routes/login');
+
+
 
 
 
@@ -63,9 +67,12 @@ app.use('/users', usersRouter);
 
 // Routes that should handle requests
 app.use('/products', productRoutes);
-app.use('/orders', orderRoutes);
 app.use('/services', serviceRoutes);
-app.use('/serviceorders', serviceOrderRoutes);
+app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
+app.use('/signup', signupRoutes);
+app.use('/login', loginRoutes);
+
 
 
 

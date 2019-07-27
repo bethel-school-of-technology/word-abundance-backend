@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../models/user');
 const {signupValidation}  = require('../validation/validation');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
 router.post('/', async (req, res) => {
 
@@ -19,6 +20,7 @@ router.post('/', async (req, res) => {
 
 // Create a New User
     let user = new User({
+        _id: mongoose.Types.ObjectId(),
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
@@ -27,7 +29,7 @@ router.post('/', async (req, res) => {
     });
     try {
         let saveduser = await user.save();
-        res.send(user = user.id);
+        res.send(user = user.id)
     } catch (err) {
         res.status(400).send(err);
     }

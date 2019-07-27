@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const multer = require('multer');
 const ServicesController = require('../controllers/services');
+const verifytoken = require('../validation/verifyToken');
 
 // Multer Middleware
 // Adding an image to services
@@ -33,7 +34,7 @@ const upload = multer({
 });
 
 // Create service
-router.post("/", upload.single('serviceImage'), ServicesController.create_service);
+router.post("/", verifytoken, upload.single('serviceImage'), ServicesController.create_service);
 
 // Find all Services
 router.get("/", ServicesController.get_all_services);
@@ -42,9 +43,9 @@ router.get("/", ServicesController.get_all_services);
 router.get("/:serviceId", ServicesController.find_one_service);
 
 // Update service
-router.patch("/:serviceId", ServicesController.update_service);
+router.patch("/:serviceId", verifytoken, ServicesController.update_service);
 
 // Delete service
-router.delete("/:serviceId", ServicesController.delete_service);
+router.delete("/:serviceId", verifytoken, ServicesController.delete_service);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const multer = require('multer');
 const ProductsController = require('../controllers/products')
+const verifytoken = require('../validation/verifyToken');
 
 
 // Multer Middleware
@@ -36,7 +37,7 @@ const upload = multer({
 
 
 // Create products
-router.post("/", upload.single('productImage'), ProductsController.create_product);
+router.post("/", verifytoken, upload.single('productImage'), ProductsController.create_product);
 
 // Find all products
 router.get("/",  ProductsController.get_all_products );
@@ -45,9 +46,9 @@ router.get("/",  ProductsController.get_all_products );
 router.get("/:productId", ProductsController.get_product );
 
 // Update one product
-router.patch("/:productId", ProductsController.update_product);
+router.patch("/:productId", verifytoken, ProductsController.update_product);
 
 // Delete one product
-router.delete("/:productId", ProductsController.delete_product);
+router.delete("/:productId", verifytoken, ProductsController.delete_product);
 
 module.exports = router;
