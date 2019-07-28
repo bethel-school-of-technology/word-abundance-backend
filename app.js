@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 // let graphqlHTTP = require('express-graphql');
 // let graphqlSchema = require('./api/models/serviceSearch')
+var admin = require('sriracha');
 
 let app = express();
 
@@ -53,7 +54,7 @@ app.use((req, res, next) => {
   }
   next();
 });
-
+app.use('/admin', admin());
 app.use(morgan('dev'));
 app.use(logger('dev'));
 
