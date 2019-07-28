@@ -53,7 +53,7 @@ app.use((req, res, next) => {
   }
   next();
 });
-app.use('/uploads', express.static('uploads'));
+
 app.use(morgan('dev'));
 app.use(logger('dev'));
 
@@ -71,7 +71,9 @@ app.use('/posts', postRoutes);
 app.use('/products', productRoutes);
 app.use('/services', serviceRoutes);
 app.use('/serviceorders', serviceOrderRoutes);
+app.use('/uploads', express.static('uploads'));
 app.use('/user/signup', signUpRoutes );
 app.use('/user/login', loginRoutes);
+
 
 module.exports = app;
