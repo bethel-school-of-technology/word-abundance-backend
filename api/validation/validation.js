@@ -1,7 +1,7 @@
 // Validation 
 let Joi = require('@hapi/joi');
 
-//Sign Up Validation
+// Sign Up Validation
 let signupValidation = data => {  
     let schema = {
         firstName: Joi.string().min(6).required(),
@@ -12,7 +12,7 @@ let signupValidation = data => {
     return Joi.validate(data, schema);
 };
 
-//Login Validation
+// Login Validation
 let loginValidation = data => {  
     let schema = {
         email: Joi.string().min(6).required().email(),
