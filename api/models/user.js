@@ -1,16 +1,17 @@
 let mongoose = require('mongoose');
 
 let userSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     firstName: {
         type: String,
         required: true,
-        min: 6,
+        min: 2,
         max: 255
     },
     lastName: {
         type: String,
         required: true,
-        min: 6,
+        min: 3,
         max: 255
     },
     email: {

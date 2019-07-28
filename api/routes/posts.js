@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const verify = require('./verifyToken');
-const Post = require('./postSchema');
+const verify = require('../../post_api/verifyToken');
+const Post = require('../models/post');
 
 //Get All Posts
 router.get('/', async (req, res) => {
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 //Submits a Post
-router.post('/', async (req, res) => {
+router.post('/', verify, async (req, res) => {
     let post = new Post({
         title: req.body.title,
         description: req.body.description
@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
 });
 
 //Specific Post
-router.get('/:postId', async (req, res) => {
+router.get('/:postId', verify, async (req, res) => {
     try {
         let post = await Post.findById(req.params.postId);
         res.json(post);

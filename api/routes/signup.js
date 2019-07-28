@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-//Delete a Specific User
+// Delete a Specific User
 router.delete('/:userId', async (req, res) => {
     try {
         let removedPost = await Post.remove({_id: req.params.postId})
@@ -42,7 +42,7 @@ router.delete('/:userId', async (req, res) => {
     }
 })
 
-//Update a User by Id (Email)
+// Update a User by Id (Email)
 router.patch('/:userId/email', async (req, res) => {
     try {
         let updatedUser = await Post.updateOne({_id: req.params.userId}, 
@@ -54,7 +54,7 @@ router.patch('/:userId/email', async (req, res) => {
     }
 })
 
-//Update a User by Id (Password)
+// Update a User by Id (Password)
 router.patch('/:userId/password', async (req, res) => {
     try {
         let updatedUser = await Post.updateOne({_id: req.params.userId}, 
