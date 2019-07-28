@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const config = require('../validation/.config')
+const config = require('../validation/config')
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const tokenList = {}
@@ -53,7 +53,7 @@ router.post('/token', (req,res) => {
     }
 });
 
-router.use(require('./tokenChecker'))
+router.use(require('../validation/tokenChecker'))
 
 router.get('/secure', (req,res) => {
     // all secured routes goes here
