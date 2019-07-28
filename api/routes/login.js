@@ -1,6 +1,8 @@
 const router = require('express').Router();
+const config = require('../validation/.config')
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const tokenList = {}
 const {loginValidation}  = require('../validation/validation')
 const bcrypt = require('bcrypt');
 
@@ -31,7 +33,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/token', (req,res) => {
-    // refresh the damn token
+    // refresh the auth token
     const postData = req.body
     // if refresh token exists
     if((postData.refreshToken) && (postData.refreshToken in tokenList)) {
