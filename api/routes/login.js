@@ -27,7 +27,6 @@ router.post('/', async (req, res) => {
     }
     // Create and assign token
     const token = jwt.sign({_id: user.id}, process.env.TOKEN_SECRET);
-    // res.header('auth-token', token).send(token);
 
     // do the database authentication here, with user name and password combination.
    //const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
