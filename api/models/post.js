@@ -7,6 +7,10 @@ const postSchema = new mongoose.Schema({
         min: 6,
         max: 255
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     description: {
         type: String,
         required: true,
@@ -25,4 +29,6 @@ const postSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Post', postSchema)
+const Post = mongoose.model("Post", postSchema);
+
+module.exports = Post;
