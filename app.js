@@ -1,13 +1,15 @@
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
+
+const admin = require('sriracha');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const cors = require('cors');
+
 // let graphqlHTTP = require('express-graphql');
 // let graphqlSchema = require('./api/models/serviceSearch')
-var admin = require('sriracha');
+
 
 let app = express();
 
@@ -26,22 +28,21 @@ mongoose.connect(process.env.DB_CONNECT,
   .catch((err) => console.error(err));
   mongoose.Promise = global.Promise;
 
-const productRoutes = require('./api/routes/products');
+const loginRoutes = require('./api/routes/login');
 const orderRoutes = require('./api/routes/orders');
+const postRoutes = require('./api/routes/posts');
+const productRoutes = require('./api/routes/products');
 const serviceRoutes = require('./api/routes/services');
 const serviceOrderRoutes = require('./api/routes/orders');
 const signUpRoutes = require('./api/routes/signup');
-const loginRoutes = require('./api/routes/login');
-const postRoutes = require('./api/routes/posts');
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
 app.use(cookieParser());
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -51,16 +52,9 @@ app.use((req, res, next) => {
   }
   next();
 });
-app.use('/admin', admin());
 
 // Routes that should handle requests
-
-/* app.use('/graphql', graphqlHTTP({
-  schema: graphqlSchema,
-  rootValue: global,
-  graphiql: true,
-})); */
-
+app.use('/admin', admin());
 app.use('/orders', orderRoutes);
 app.use('/posts', postRoutes);
 app.use('/products', productRoutes);
@@ -70,5 +64,10 @@ app.use('/uploads', express.static('uploads'));
 app.use('/user/signup', signUpRoutes );
 app.use('/user/login', loginRoutes);
 
+/* app.use('/graphql', graphqlHTTP({
+  schema: graphqlSchema,
+  rootValue: global,
+  graphiql: true,
+})); */
 
 module.exports = app;

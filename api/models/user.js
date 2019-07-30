@@ -55,12 +55,15 @@ const userSchema = new mongoose.Schema({
         min: 6,
         max: 1024
     },
+    admin: {
+        type: Boolean,
+    },
     date: {
         type: Date,
         default: Date.now
     },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;

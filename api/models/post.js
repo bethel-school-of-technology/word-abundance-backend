@@ -23,12 +23,15 @@ const postSchema = new mongoose.Schema({
         min: 6,
         max: 255
     },
-    date: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
+    updatedAt: {
+        type: Date,
+    },
 });
 
-const Post = mongoose.model("Post", postSchema);
+const Post = mongoose.model("post", postSchema);
 
 module.exports = Post;
