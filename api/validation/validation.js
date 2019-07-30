@@ -11,7 +11,7 @@ let signupValidation = data => {
         state: Joi.string(),
         country: Joi.string(),
         email: Joi.string().min(6).required().email(),
-        password: Joi.string().min(6).required()
+        password: Joi.string().min(6).required(),
     };
     return Joi.validate(data, schema);
 };
