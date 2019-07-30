@@ -18,6 +18,7 @@ exports.get_all_orders = (req, res, next) => {
             product: doc.product,
             service: doc.service,
             name: doc.name,
+            category: req.body.category,
             quantity: doc.quantity,
             hourlyrate: doc.hourlyrate,
             request: {
@@ -116,6 +117,45 @@ exports.create_serviceorder = (req, res, next) => {
     });
 }
 
+exports.add_product_order = (req, res, next) => {
+  Product.findById(req.body.productId)
+    .then(product => {
+      if (!product) {
+        return res.status(404).json({
+          message: "Product not found"
+        });
+      } else {
+        const order = new Order({
+          _id: mongoose.Types.ObjectId(),
+          product: req.body.productId,
+          quantity: req.body.quantity,
+        });
+        return order.save();
+      };
+    })
+    .then(result => {
+      console.log(result);
+      return res.status(201).json({
+        message: "Order stored",
+        createdOrder: {
+          _id: result._id,
+          productId: result.product,
+          quantity: result.quantity
+        },
+        request: {
+          type: "GET",
+          url: "http://localhost:3001/orders/" + result._id
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      return () => res.status(500).json({
+        message: "Orders not found",
+        error: err
+      });
+    });
+}
 
 //   Find one order
 exports.find_one_order = (req, res, next) => {

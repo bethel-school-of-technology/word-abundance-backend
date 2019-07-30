@@ -5,7 +5,8 @@ const orderSchema = mongoose.Schema({
     product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
     quantity: { type: Number, defaul: 1 },
     service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
-    hourlyrate: { type: Number }
+    hourlyrate: { type: Number },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
 module.exports = mongoose.model('Order', orderSchema);

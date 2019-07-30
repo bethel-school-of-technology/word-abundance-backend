@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product");
+const Cart = require("../models/cart");
+
 
 // Get all products
 exports.get_all_products = (req, res, next) => {
@@ -13,6 +15,7 @@ exports.get_all_products = (req, res, next) => {
             return {
               _id: doc._id,
               name: doc.name,
+              category: req.body.category,
               price: doc.price,
               quantity: doc.quantity,
               instock: doc.instock,
@@ -74,6 +77,7 @@ exports.get_all_products = (req, res, next) => {
     const product = new Product({
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
+      category: req.body.category,
       price: req.body.price,
       quantity: req.body.quantity,
       instock: req.body.instock,
@@ -88,6 +92,7 @@ exports.get_all_products = (req, res, next) => {
           createdProduct: {
             _id: result._id,
             name: result.name,
+            category: req.body.category,
             price: result.price,
             quantity: result.quantity,
             instock: result.instock,
@@ -154,3 +159,18 @@ exports.get_all_products = (req, res, next) => {
         });
       });
   }
+
+
+  exports.add_to_cart = function(req, res, next){
+    var productId = req.params.id;
+    var cart =  new Cart(req.session.cart ? req.session.cart : {});
+    Product.findById(productId, function (err, prodcut){
+      if (err){
+        return res.redirect ('/');
+      }
+      cart.add(prodcut, product.id);
+      req.session.cart = cart;
+      console.log(req.session.cart);
+      res.redirect('/');
+    });
+  };

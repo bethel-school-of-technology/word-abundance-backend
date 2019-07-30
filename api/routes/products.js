@@ -51,4 +51,6 @@ router.patch("/:productId", verifytoken, ProductsController.update_product);
 // Delete one product
 router.delete("/:productId", verifytoken, ProductsController.delete_product);
 
+router.get('/add-to-cart/:id', ProductsController.add_to_cart);
+
 module.exports = router;

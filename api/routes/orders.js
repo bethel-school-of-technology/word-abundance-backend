@@ -6,6 +6,8 @@ const verifytoken = require('../validation/verifyToken');
 // Create product order
 router.post("/products", verifytoken, OrdersController.create_product_order );
 
+router.put("/products/:orderId", verifytoken, OrdersController.add_product_order );
+
 // Create service order
 router.post("/services", verifytoken, OrdersController.create_serviceorder );
 

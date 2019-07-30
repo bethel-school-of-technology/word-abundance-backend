@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
-
+const session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 
 mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '@abundant-2iz3d.mongodb.net/test?retryWrites=true&w=majority',
@@ -25,13 +26,9 @@ const signupRoutes = require('./api/routes/signup');
 const loginRoutes = require('./api/routes/login');
 
 
-
-
-
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 var app = express();
-
 
 
 
@@ -51,7 +48,26 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set('trust proxy', 1)
+app.use(session({
+  secret: 'abun',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: { maxAge: 180 * 60 * 1000}
+}));
+
+ 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next){
+    res.locals.session = req.session;
+    next();
+});
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -61,6 +77,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
