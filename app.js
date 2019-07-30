@@ -1,9 +1,6 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -55,9 +52,6 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/admin', admin());
-app.use(morgan('dev'));
-app.use(logger('dev'));
-
 
 // Routes that should handle requests
 
