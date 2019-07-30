@@ -6,6 +6,10 @@ let signupValidation = data => {
     let schema = {
         firstName: Joi.string().min(2).required(),
         lastName: Joi.string().min(3).required(),
+        address: Joi.string(),
+        city: Joi.string(),
+        state: Joi.string(),
+        country: Joi.string(),
         email: Joi.string().min(6).required().email(),
         password: Joi.string().min(6).required()
     };
