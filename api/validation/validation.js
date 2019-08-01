@@ -6,6 +6,7 @@ let signupValidation = data => {
     let schema = {
         firstName: Joi.string().min(2).required(),
         lastName: Joi.string().min(3).required(),
+        primaryPhone: Joi.string().regex(/^\d{3}-d{3}-d{4}$/),
         address: Joi.string(),
         city: Joi.string(),
         state: Joi.string(),
