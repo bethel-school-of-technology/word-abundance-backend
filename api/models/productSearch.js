@@ -1,6 +1,6 @@
-// let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
+let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
 
-/* let ProductSearch = new GraphQLObjectType({
+let ProductSearch = new GraphQLObjectType({
   name: 'products',
   fields: () => ({
     name: {
@@ -19,10 +19,10 @@
       type: GraphQLString
     },
   })
-}) */
+})
 
 // Root Query
-/* const RootQuery = new GraphQLObjectType({
+const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     
@@ -31,4 +31,4 @@
 
 module.exports = new GraphQLSchema({
   query: RootQuery
-}); */
+});

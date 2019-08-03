@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 
 // Login
 router.post('/', async (req, res) => {
+    console.log(req)
     // LETS VALIDATE THE DATA BEFORE WE LOGIN USER
     let {error} = loginValidation(req.body);
     if (error) return res.status(400).send(error.details[0].message);
