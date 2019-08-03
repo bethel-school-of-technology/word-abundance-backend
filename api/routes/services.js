@@ -33,14 +33,14 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-// Create service
-router.post("/", verifytoken, upload.single('serviceImage'), ServicesController.create_service);
-
 // Find all Services
 router.get("/", ServicesController.get_all_services);
 
 // Find one service
 router.get("/:serviceId", ServicesController.find_one_service);
+
+// Create service
+router.post("/", verifytoken, upload.single('serviceImage'), ServicesController.create_service);
 
 // Update service
 router.patch("/:serviceId", verifytoken, ServicesController.update_service);

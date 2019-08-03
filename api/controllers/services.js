@@ -7,6 +7,7 @@ exports.create_service = (req, res, next) => {
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
       category: req.body.category,
+      description: req.body.description,
       hourlyrate: req.body.hourlyrate,
       serviceImage: req.file.path
     });
@@ -19,6 +20,7 @@ exports.create_service = (req, res, next) => {
           createdService: {
               _id: result._id,
               name: result.name,
+              description: result.description,
               category: req.body.category,
               hourlyrate: result.hourlyrate,
               request: {

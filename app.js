@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 const mongoose = require('mongoose');
 const session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -15,8 +16,9 @@ mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '
 );
 mongoose.Promise = global.Promise;
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
+// var indexRouter = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 const productRoutes = require('./api/routes/products');
 const serviceRoutes = require('./api/routes/services');
@@ -24,6 +26,7 @@ const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/users');
 const signupRoutes = require('./api/routes/signup');
 const loginRoutes = require('./api/routes/login');
+const cartRoutes = require('./api/routes/cart');
 
 
 const morgan = require('morgan');
@@ -33,12 +36,12 @@ var app = express();
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
 
 app.use('/uploads', express.static('uploads'));
 
-
+app.use(cors());
 app.use(morgan('dev'));
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,22 +51,15 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.set('trust proxy', 1)
 app.use(session({
   secret: 'abun',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   cookie: { maxAge: 180 * 60 * 1000}
 }));
 
- 
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
-}
-
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     res.locals.session = req.session;
     next();
@@ -79,8 +75,8 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
 
 // Routes that should handle requests
 app.use('/products', productRoutes);
@@ -89,6 +85,7 @@ app.use('/orders', orderRoutes);
 app.use('/users', userRoutes);
 app.use('/signup', signupRoutes);
 app.use('/login', loginRoutes);
+app.use('/cart', cartRoutes);
 
 
 
