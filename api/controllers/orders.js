@@ -70,7 +70,7 @@ exports.create_cart_order = (req, res, next) => {
       } else {
         const order = new Order({
           _id: mongoose.Types.ObjectId(),
-          ordernumber: req.body.ordernumber,
+          ordernumber: mongoose.Types.ObjectId(),
           cart: req.body.cartId
           
         });
