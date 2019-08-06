@@ -1,19 +1,16 @@
 const express = require('express');
 
-const admin = require('sriracha');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 
-// let graphqlHTTP = require('express-graphql');
-// let graphqlSchema = require('./api/models/serviceSearch')
+const app = express();
+const router = require('./router');
 
-
-let app = express();
-
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
   res.send('We are on home');
 });
 
@@ -26,7 +23,7 @@ app.post('/signin', function (req, res) {
   else{
     res.send('Failure');
   }
-})
+}) */
 
 // Enviroment Variables
 dotenv.config();
@@ -39,16 +36,22 @@ mongoose.connect(process.env.DB_CONNECT,
   .catch((err) => console.error(err));
   mongoose.Promise = global.Promise;
 
-const loginRoutes = require('./api/routes/login');
+// App Setup
+app.use(morgan('combined'));
+app.use(cors());
+app.use(bodyParser.json({ type: '*/*' }));
+router(app);
+
+/* const loginRoutes = require('./api/routes/login');
 const orderRoutes = require('./api/routes/orders');
 const postRoutes = require('./api/routes/posts');
 const productRoutes = require('./api/routes/products');
 const serviceRoutes = require('./api/routes/services');
 const serviceOrderRoutes = require('./api/routes/orders');
-const signUpRoutes = require('./api/routes/signup');
+const signUpRoutes = require('./api/routes/signup'); */
 
 // Middleware
-app.use(bodyParser.json());
+/* app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
@@ -62,10 +65,10 @@ app.use((req, res, next) => {
     return res.status(200).json({});
   }
   next();
-});
+}); */
 
 // Routes that should handle requests
-app.use('/admin', admin());
+/* app.use('/admin', admin());
 app.use('/orders', orderRoutes);
 app.use('/posts', postRoutes);
 app.use('/products', productRoutes);
@@ -74,11 +77,6 @@ app.use('/serviceorders', serviceOrderRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/user/signup', signUpRoutes );
 app.use('/user/login', loginRoutes);
+ */
 
-/* app.use('/graphql', graphqlHTTP({
-  schema: graphqlSchema,
-  rootValue: global,
-  graphiql: true,
-})); */
-
-module.exports = app;
+//module.exports = app;
