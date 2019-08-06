@@ -12,17 +12,6 @@ app.get('/', (req, res) => {
   res.send('We are on home');
 });
 
-/* app.post('/signin', function (req, res) {
-  var user_name=req.body.email;
-  var password=req.body.password;
-  if(user_name=='admin' && password=='admin'){
-      res.send('success');
-  }
-  else{
-    res.send('Failure');
-  }
-})  */
-
 // Enviroment Variables
 dotenv.config();
 
@@ -40,6 +29,7 @@ app.use(bodyParser.json({ type: '*/*' }));
 
 const loginRoutes = require('./api/routes/login');
 // const orderRoutes = require('./api/routes/orders');
+const articleRoutes = require('./api/routes/articles');
 const postRoutes = require('./api/routes/posts');
 // const productRoutes = require('./api/routes/products');
 // const serviceRoutes = require('./api/routes/services');
@@ -64,6 +54,7 @@ app.use((req, res, next) => {
 });
 
 // Routes that should handle requests
+app.use('/articles', articleRoutes);
 // app.use('/orders', orderRoutes);
 app.use('/posts', postRoutes);
 // app.use('/products', productRoutes);
