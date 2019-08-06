@@ -6,41 +6,14 @@ const tokenList = {}
 const {loginValidation}  = require('../validation/validation')
 const bcrypt = require('bcrypt');
 
+
+// get all users
+router.get("/", async (req, res) => {
+    const users = await User.find().sort("name");
+    res.send(users);
+  });
+
 // Login
-
-/* exports.login = async, (req, res) => {
-    // LETS VALIDATE THE DATA BEFORE WE LOGIN USER
-    let {error} = loginValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-
-    // Checker if email exists
-    let user = await User.findOne({email: req.body.email});
-    if (!user) return res.status(400).send('Email is not found!');
-
-    // Password is Correct
-    let validPass = await bcrypt.compare(req.body.password, user.password,);
-    if (!validPass) return res.status(400).send('Invalid Password');
-    
-    const postData = req.body;
-    const player = {
-        "email": postData.email,
-        "password": postData.password
-    }
-    // Create and assign token
-    const token = jwt.sign({_id: user.id}, process.env.TOKEN_SECRET);
-
-    // do the database authentication here, with user name and password combination.
-   //const token = jwt.sign(user, config.secret, { expiresIn: config.tokenLife})
-    const refreshToken = jwt.sign(player, config.refreshTokenSecret, { expiresIn: config.refreshTokenLife})
-    const response = {
-        "status": "Logged in",
-        "token": token,
-        "refreshToken": refreshToken,
-    }
-    tokenList[refreshToken] = response
-    res.status(200).json(response);
-}; */
-
 router.post('/', async (req, res) => {
     // console.log(req)
     // LETS VALIDATE THE DATA BEFORE WE LOGIN USER

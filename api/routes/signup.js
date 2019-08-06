@@ -3,6 +3,8 @@ const User = require('../models/user');
 const {signupValidation}  = require('../validation/validation');
 const bcrypt = require('bcrypt');
 
+
+  
 router.post('/', async (req, res) => {
 
 // LETS VALIDATE THE DATA BEFORE WE ADD A USER TO DB
