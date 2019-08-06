@@ -8,6 +8,7 @@
   "dependencies": {
     "@hapi/joi": "^15.1.0",
     "bcrypt": "^3.0.6",
+    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
     "contentful-management": "^5.9.0",
@@ -21,8 +22,11 @@
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
     "mongoose": "^5.6.4",
+    "morgan": "^1.9.1",
     "multer": "^1.4.2",
-    "sriracha": "^1.0.0"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "errorhandler": "^1.5.1",
