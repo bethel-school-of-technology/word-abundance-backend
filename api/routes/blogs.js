@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Articles = require('../models/articles');
+const Blog = require('../models/blogpost');
 
 router.post('/', (req, res, next) => {
   const { body } = req;
@@ -28,25 +28,25 @@ router.post('/', (req, res, next) => {
     });
   }
 
-  const finalArticle = new Articles(body);
-  return finalArticle.save()
-    .then(() => res.json({ article: finalArticle.toJSON() }))
+  const finalBlog = new Blogs(body);
+  return finalBlog.save()
+    .then(() => res.json({ article: finalBlog.toJSON() }))
     .catch(next);
 });
 
 router.get('/', (req, res, next) => {
-  return Articles.find()
+  return Blog.find()
     .sort({ createdAt: 'descending' })
-    .then((articles) => res.json({ articles: articles.map(article => article.toJSON()) }))
+    .then((blogs) => res.json({ blogs: blogs.map(blog => blog.toJSON()) }))
     .catch(next);
 });
 
 router.param('id', (req, res, next, id) => {
-  return Articles.findById(id, (err, article) => {
+  return Blog.findById(id, (err, article) => {
     if(err) {
       return res.sendStatus(404);
-    } else if(article) {
-      req.article = article;
+    } else if(blog) {
+      req.blog = blog;
       return next();
     }
   }).catch(next);
@@ -54,7 +54,7 @@ router.param('id', (req, res, next, id) => {
 
 router.get('/:id', (req, res, next) => {
   return res.json({
-    article: req.article.toJSON(),
+    blog: req.blog.toJSON(),
   });
 });
 
@@ -62,24 +62,24 @@ router.patch('/:id', (req, res, next) => {
   const { body } = req;
 
   if(typeof body.title !== 'undefined') {
-    req.article.title = body.title;
+    req.blog.title = body.title;
   }
 
   if(typeof body.author !== 'undefined') {
-    req.article.author = body.author;
+    req.blog.author = body.author;
   }
 
   if(typeof body.body !== 'undefined') {
-    req.article.body = body.body;
+    req.blog.body = body.body;
   }
 
-  return req.article.save()
-    .then(() => res.json({ article: req.article.toJSON() }))
+  return req.blog.save()
+    .then(() => res.json({ article: req.blog.toJSON() }))
     .catch(next);
 });
 
 router.delete('/:id', (req, res, next) => {
-  return Articles.findByIdAndRemove(req.article._id)
+  return Blog.findByIdAndRemove(req.blog._id)
     .then(() => res.sendStatus(200))
     .catch(next);
 });

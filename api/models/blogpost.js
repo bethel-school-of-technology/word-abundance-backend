@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ArticlesSchema = new mongoose.Schema({
+const BlogSchema = new mongoose.Schema({
   title: String,
   body: String,
   author: String,
@@ -8,7 +8,7 @@ const ArticlesSchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-ArticlesSchema.methods.toJSON = function() {
+BlogSchema.methods.toJSON = function() {
   return {
     _id: this._id,
     title: this.title,
@@ -19,7 +19,5 @@ ArticlesSchema.methods.toJSON = function() {
   };
 };
 
-//module.exports = mongoose.model('Articles', ArticlesSchema);
-
-const Article = mongoose.model("articles", ArticlesSchema);
-module.exports = Article;
+const Blog = mongoose.model("articles", BlogSchema);
+module.exports = Blog;

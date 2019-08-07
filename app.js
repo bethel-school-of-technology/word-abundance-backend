@@ -29,8 +29,7 @@ app.use(bodyParser.json({ type: '*/*' }));
 
 const loginRoutes = require('./api/routes/login');
 // const orderRoutes = require('./api/routes/orders');
-const articleRoutes = require('./api/routes/articles');
-const postRoutes = require('./api/routes/posts');
+const blogRoutes = require('./api/routes/blogs');
 const productRoutes = require('./api/routes/products');
 // const serviceRoutes = require('./api/routes/services');
 // const serviceOrderRoutes = require('./api/routes/orders');
@@ -54,9 +53,8 @@ app.use((req, res, next) => {
 });
 
 // Routes that should handle requests
-app.use('/articles', articleRoutes);
+app.use('/blogs', blogRoutes);
 // app.use('/orders', orderRoutes);
-app.use('/posts', postRoutes);
 app.use('/products', productRoutes);
 // app.use('/services', serviceRoutes);
 // app.use('/serviceorders', serviceOrderRoutes);
