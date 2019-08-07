@@ -28,13 +28,14 @@ router.post('/', (req, res, next) => {
     });
   }
 
-  const finalBlog = new Blogs(body);
+  const finalBlog = new Blog(body);
   return finalBlog.save()
-    .then(() => res.json({ article: finalBlog.toJSON() }))
+    .then(() => res.json({ blog: finalBlog.toJSON() }))
     .catch(next);
 });
 
 router.get('/', (req, res, next) => {
+  console.log(res)
   return Blog.find()
     .sort({ createdAt: 'descending' })
     .then((blogs) => res.json({ blogs: blogs.map(blog => blog.toJSON()) }))
@@ -42,7 +43,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.param('id', (req, res, next, id) => {
-  return Blog.findById(id, (err, article) => {
+  return Blog.findById(id, (err, blog) => {
     if(err) {
       return res.sendStatus(404);
     } else if(blog) {
@@ -74,7 +75,7 @@ router.patch('/:id', (req, res, next) => {
   }
 
   return req.blog.save()
-    .then(() => res.json({ article: req.blog.toJSON() }))
+    .then(() => res.json({ blog: req.blog.toJSON() }))
     .catch(next);
 });
 
