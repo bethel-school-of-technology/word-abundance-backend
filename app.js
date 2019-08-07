@@ -31,7 +31,7 @@ const loginRoutes = require('./api/routes/login');
 // const orderRoutes = require('./api/routes/orders');
 const articleRoutes = require('./api/routes/articles');
 const postRoutes = require('./api/routes/posts');
-// const productRoutes = require('./api/routes/products');
+const productRoutes = require('./api/routes/products');
 // const serviceRoutes = require('./api/routes/services');
 // const serviceOrderRoutes = require('./api/routes/orders');
 const signUpRoutes = require('./api/routes/signup');
@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 app.use('/articles', articleRoutes);
 // app.use('/orders', orderRoutes);
 app.use('/posts', postRoutes);
-// app.use('/products', productRoutes);
+app.use('/products', productRoutes);
 // app.use('/services', serviceRoutes);
 // app.use('/serviceorders', serviceOrderRoutes);
 // app.use('/uploads', express.static('uploads'));
