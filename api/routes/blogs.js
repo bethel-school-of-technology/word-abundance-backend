@@ -39,7 +39,19 @@ router.get('/', (req, res, next) => {
     .sort({ createdAt: 'descending' })
     .then((blogs) => res.json({ blogs: blogs.map(blog => blog.toJSON()) }))
     .catch(next);
-});
+}); 
+
+/* router.get('/',(req, res) => {
+  const Blog = Blog.find()
+  .populate("author", "_id name")
+  .populate("body", "text created")
+  .select("_id title body author")
+  .sort({ created: -1})
+  .then(Blog=> {
+      res.json(Blog);
+  })
+  .catch(err => console.log(err));
+}); */
 
 router.param('id', (req, res, next, id) => {
   return Blog.findById(id, (err, blog) => {
