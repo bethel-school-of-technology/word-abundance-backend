@@ -35,11 +35,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'LightBlog', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
 const loginRoutes = require('./api/routes/login');
-// const orderRoutes = require('./api/routes/orders');
 const blogRoutes = require('./api/routes/blogs');
 const productRoutes = require('./api/routes/products');
-// const serviceRoutes = require('./api/routes/services');
-// const serviceOrderRoutes = require('./api/routes/orders');
 const signUpRoutes = require('./api/routes/signup');
 
 // Middleware
@@ -61,11 +58,7 @@ app.use((req, res, next) => {
 
 // Routes that should handle requests
 app.use('/blogs', blogRoutes);
-// app.use('/orders', orderRoutes);
 app.use('/products', productRoutes);
-// app.use('/services', serviceRoutes);
-// app.use('/serviceorders', serviceOrderRoutes);
-// app.use('/uploads', express.static('uploads'));
 app.use('/user/signup', signUpRoutes );
 app.use('/user/login', loginRoutes);
 
