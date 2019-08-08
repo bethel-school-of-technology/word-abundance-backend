@@ -8,7 +8,7 @@ const BlogSchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-BlogSchema.methods.toJSON = function() {
+ BlogSchema.methods.toJSON = function() {
   return {
     _id: this._id,
     title: this.title,
@@ -19,5 +19,5 @@ BlogSchema.methods.toJSON = function() {
   };
 };
 
-const Blog = mongoose.model("articles", BlogSchema);
+const Blog = mongoose.model("blogs", BlogSchema);
 module.exports = Blog;

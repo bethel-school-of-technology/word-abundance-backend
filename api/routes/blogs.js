@@ -35,7 +35,6 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  console.log(res)
   return Blog.find()
     .sort({ createdAt: 'descending' })
     .then((blogs) => res.json({ blogs: blogs.map(blog => blog.toJSON()) }))

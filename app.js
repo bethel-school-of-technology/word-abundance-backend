@@ -1,5 +1,6 @@
+const path = require('path');
 const express = require('express');
-
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -24,9 +25,14 @@ mongoose.connect(process.env.DB_CONNECT,
   .catch((err) => console.error(err));
   mongoose.Promise = global.Promise;
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 // App Setup
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'LightBlog', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
 const loginRoutes = require('./api/routes/login');
 // const orderRoutes = require('./api/routes/orders');
