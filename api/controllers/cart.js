@@ -83,6 +83,7 @@ exports.add_product_to_cart = (req, res) => {
   exports.view_cart = (req, res) => {
     Cart.findOne({ user: req.user.id })
     .populate('items.product items.service')
+    .select( 'items.product items.service')
     .exec((err, cart) => {
       if (!cart) {
         return res.send(null);
