@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product");
+// const Cart = require("../models/cart");
+
 
 // Get all products
 exports.get_all_products = (req, res, next) => {
@@ -41,6 +43,7 @@ exports.get_all_products = (req, res, next) => {
       });
     });
 }
+
 //   Get one product
 exports.get_product = (req, res, next) => {
   const id = req.params.productId;
@@ -68,6 +71,7 @@ exports.get_product = (req, res, next) => {
       res.status(500).json({ error: err });
     });
 }
+
 //   Create product
 exports.create_product = (req, res, next) => {
   console.log(req.file);
@@ -109,6 +113,7 @@ exports.create_product = (req, res, next) => {
       });
     });
 }
+
 //   Update product
 exports.update_product = (req, res, next) => {
   const id = req.params.productId;
@@ -134,6 +139,7 @@ exports.update_product = (req, res, next) => {
       });
     });
 }
+
 //   Delete product
 exports.delete_product = (req, res, next) => {
   const id = req.params.productId;
@@ -158,4 +164,105 @@ exports.delete_product = (req, res, next) => {
 }
 
 
+// exports.add_to_cart = function(req, res, next){
+//   const productId = req.params.id;
+//   const cart =  new Cart(req.session.cart ? req.session.cart : {});
+//   Product.findById(productId, function (err, product){
+//     if (err){
+//       return res.redirect ('/');
+//     }
+//     cart.add(product, product.id);
+//     req.session.cart = cart;
+//     console.log(req.session.cart);
+//     res.redirect('/');
+//   });
+// };
 
+// exports.add_to_cart =  (req, res, next)=>{
+//   const id = req.params.productId;
+//   const cart =  new Cart(req.session.cart ? req.session.cart : {});
+//   Product.findById(id)
+//   .exec()
+//   .then(result => {
+//     cart.add(product = result.productId);
+//     req.session.cart = cart;
+//     console.log(req.session.cart);
+//     res.redirect('/');
+//   });
+//   };
+
+// exports.add_to_cart = (req, res, next) => {
+//   const productId = req.params.id;
+//   const cart = new Cart(req.session.cart ? req.session.cart : {});
+//   Product.findById(productId)
+//     .exec()
+//     .then(result => {
+//       console.log("From database");
+//       cart.add({
+//         product : result.productId});
+//       req.session.cart = cart;
+//       console.log(req.session.cart);
+//       res.redirect('/');
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({ error: err });
+//     });
+// }
+
+// exports.add_to_cart = (req, res, next) => {
+//   const cart = new Cart(req.session.cart ? req.session.cart : {});
+//   Product.findById(req.params.productId)
+//     .then(product => {
+//       if(!product) {
+//         return res.status(404).json({
+//           message: "Product not found"
+//         });
+//       } else {
+//       cart.add({
+//         product : req.body.productId,
+//         qty : req.body.quantity,
+//         price : req.body.price
+//       });
+//       req.session.cart = cart;
+//       console.log(req.session.cart);
+//       res.redirect('/');
+//     }})
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({ error: err });
+//     });
+// }
+
+// exports.add_to_cart = (req, res, next) => {
+//   const cart = new Cart(req.session.cart ? req.session.cart : {});
+//   Product.findById(req.params.productId)
+//     .exec()
+//     .then(product => {
+//       if (!product) {
+//         return res.status(404).json({
+//           message: 'Product not found'
+//         });
+//       }
+//       cart.add({
+//         product: req.body.productId,
+//         qty: req.body.quantity,
+//         price: req.body.price
+//       });
+//       req.session.cart = cart;
+//       console.log(req.session.cart);
+//       res.redirect('/');
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({ error: err });
+//     });
+// }
+
+// exports.shoppingcart = (req, res, next) => {
+//   if (!req.session.cart) {
+//     return res.render('/shopping-cart', { products: null });
+//   }
+//   var cart = new Cart(req.session.cart);
+//   res.render('/shopping-cart', { products: cart.generateArray(), totalPrice: cart.totalPrice });
+// }

@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = new express.Router();
 const multer = require('multer');
-const ProductsController = require('../controllers/product')
-// const verifytoken = require('../validation/verifyToken');
+const ProductsController = require('../controllers/products')
+const verifytoken = require('../validation/verifyToken');
 
 
 // Multer Middleware
@@ -34,21 +34,25 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-
-
-// Create products
-router.post("/", upload.single('productImage'), ProductsController.create_product);
-
 // Find all products
 router.get("/",  ProductsController.get_all_products );
 
 // Find one product
 router.get("/:productId", ProductsController.get_product );
 
+// Create products
+router.post("/", verifytoken, upload.single('productImage'), ProductsController.create_product);
+
 // Update one product
-router.patch("/:productId", ProductsController.update_product);
+router.patch("/:productId", verifytoken, ProductsController.update_product);
 
 // Delete one product
-router.delete("/:productId", ProductsController.delete_product);
+router.delete("/:productId", verifytoken, ProductsController.delete_product);
+
+// router.post("/add-to-cart/:productId", ProductsController.add_to_cart);
+
+// router.get("/shopping-cart", ProductsController.shoppingcart);
+
+ 
 
 module.exports = router;

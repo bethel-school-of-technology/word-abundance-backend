@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/flatly/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T5jhQKMh96HMkXwqVMSjF3CmLcL1nT9//tCqu9By5XSdj7CwR0r+F3LTzUdfkkQf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Sofia" rel="stylesheet" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col-sm-12'>
+                <h1>{{title}}</h1>
+                <p>Welcome to a list of {{title}}</p>
+                <table>
+                    <tr>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Population</th>
+                    </tr>
+                    {{#each cities}}
+                    <tr>
+                        <td>{{name}}</td>
+                        <td>{{state}}</td>
+                        <td>{{population}}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+</body>
+
+</html>
