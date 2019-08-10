@@ -10,10 +10,11 @@ var MongoStore = require('connect-mongo')(session);
 
 
 mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '@abundant-2iz3d.mongodb.net/test?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true
-  }
-);
+  { promiseLibrary: require('bluebird'),
+    useNewUrlParser: true,
+    useFindAndModify: false})
+  .then(() =>  console.log('connection successful'))
+  .catch((err) => console.error(err))
 mongoose.Promise = global.Promise;
 
 
@@ -23,7 +24,6 @@ mongoose.Promise = global.Promise;
 const productRoutes = require('./api/routes/products');
 const serviceRoutes = require('./api/routes/services');
 const orderRoutes = require('./api/routes/orders');
-const userRoutes = require('./api/routes/users');
 const signupRoutes = require('./api/routes/signup');
 const loginRoutes = require('./api/routes/login');
 const cartRoutes = require('./api/routes/cart');
@@ -81,8 +81,7 @@ app.use((req, res, next) => {
 app.use('/products', productRoutes);
 app.use('/services', serviceRoutes);
 app.use('/orders', orderRoutes);
-app.use('/users', userRoutes);
-app.use('/signup', signupRoutes);
+app.use('/user/signup', signupRoutes);
 app.use('/user/login', loginRoutes);
 app.use('/cart', cartRoutes);
 app.use('/blogs', blogRoutes);
