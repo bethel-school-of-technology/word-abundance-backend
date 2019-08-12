@@ -27,6 +27,9 @@ const userRoutes = require('./api/routes/users');
 const signupRoutes = require('./api/routes/signup');
 const loginRoutes = require('./api/routes/login');
 const cartRoutes = require('./api/routes/cart');
+const blogRoutes = require('./api/routes/blogs');
+const contactRoutes = require('./api/routes/contacts');
+
 
 
 const morgan = require('morgan');
@@ -83,9 +86,12 @@ app.use('/products', productRoutes);
 app.use('/services', serviceRoutes);
 app.use('/orders', orderRoutes);
 app.use('/users', userRoutes);
-app.use('/signup', signupRoutes);
-app.use('/login', loginRoutes);
+app.use('/user/signup', signupRoutes);
+app.use('/user/login', loginRoutes);
 app.use('/cart', cartRoutes);
+app.use('/blogs', blogRoutes);
+app.use('/contacts', contactRoutes);
+
 
 
 

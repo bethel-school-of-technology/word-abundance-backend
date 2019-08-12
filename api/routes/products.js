@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const multer = require('multer');
-const ProductsController = require('../controllers/products')
+const ProductsController = require('../controllers/products');
 const verifytoken = require('../validation/verifyToken');
 
 
