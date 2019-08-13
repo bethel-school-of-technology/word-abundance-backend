@@ -41,17 +41,14 @@ router.get("/",  ProductsController.get_all_products );
 router.get("/:productId", ProductsController.get_product );
 
 // Create products
-router.post("/", verifytoken, upload.single('productImage'), ProductsController.create_product);
+router.post("/", verifytoken, upload.single('productImage'),
+ ProductsController.create_product);
 
 // Update one product
 router.patch("/:productId", verifytoken, ProductsController.update_product);
 
 // Delete one product
 router.delete("/:productId", verifytoken, ProductsController.delete_product);
-
-// router.post("/add-to-cart/:productId", ProductsController.add_to_cart);
-
-// router.get("/shopping-cart", ProductsController.shoppingcart);
 
  
 
