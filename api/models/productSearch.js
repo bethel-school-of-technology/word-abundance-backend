@@ -1,6 +1,6 @@
-// let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
+let { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean } = require('graphql');
 
-/* let ProductSearch = new GraphQLObjectType({
+let ProductSearch = new GraphQLObjectType({
   name: 'products',
   fields: () => ({
     name: {
@@ -19,4 +19,4 @@
       type: GraphQLString
     },
   })
-}) */
+}) 

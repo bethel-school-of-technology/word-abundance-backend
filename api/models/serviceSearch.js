@@ -1,15 +1,16 @@
-// let {GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean} = require('graphql');
+let { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLBoolean } = require('graphql');
 
-/* let ServiceSearch = new GraphQLObjectType({
+let ServiceSearch = new GraphQLObjectType({
   name: 'services',
   fields: () => ({
     name: {
       type: GraphQLString
     },
     hourlyRate: {
-      type: GraphQLInt
-    serviceImage: {
-      type: GraphQLString
-    },
+      type: GraphQLInt,
+      serviceImage: {
+        type: GraphQLString
+      }
+    }
   })
-}) */
+})
