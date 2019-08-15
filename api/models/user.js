@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// Define our model
-const userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     firstName: {
         type: String,
         required: true,

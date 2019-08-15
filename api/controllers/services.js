@@ -41,7 +41,7 @@ exports.create_service = (req, res, next) => {
 // Get all services
   exports.get_all_services =  (req, res, next) => {
     Service.find()
-      .select("_id name hourlyrate serviceImage")
+      .select("_id name category description hourlyrate serviceImage")
       .exec()
       .then(docs => {
         const response = {
@@ -51,6 +51,7 @@ exports.create_service = (req, res, next) => {
               _id: doc._id,
               name: doc.name,
               category: req.body.category,
+              description: req.body.description,
               hourlyrate: doc.hourlyrate,
               serviceImage: doc.serviceImage,
               request: {

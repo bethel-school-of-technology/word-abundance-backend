@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product");
-// const Cart = require("../models/cart");
 
 
 // Get all products
 exports.get_all_products = (req, res, next) => {
   Product.find()
-    .select("_id name category description price quantity instock productImage")
+    .select("_id name category description price quantity productImage")
     .exec()
     .then(docs => {
       const response = {
@@ -19,7 +18,6 @@ exports.get_all_products = (req, res, next) => {
             description: doc.description,
             price: doc.price,
             quantity: doc.quantity,
-            instock: doc.instock,
             productImage: doc.productImage,
             request: {
               type: "GET",
@@ -42,7 +40,7 @@ exports.get_all_products = (req, res, next) => {
         error: err
       });
     });
-}
+  }
 
 //   Get one product
 exports.get_product = (req, res, next) => {
@@ -82,7 +80,6 @@ exports.create_product = (req, res, next) => {
     category: req.body.category,
     price: req.body.price,
     quantity: req.body.quantity,
-    instock: req.body.instock,
     productImage: req.file.path
   });
   product
@@ -98,7 +95,6 @@ exports.create_product = (req, res, next) => {
           category: req.body.category,
           price: result.price,
           quantity: result.quantity,
-          instock: result.instock,
           request: {
             type: 'GET',
             url: "http://localhost:3001/products/" + result._id
@@ -162,107 +158,3 @@ exports.delete_product = (req, res, next) => {
       });
     });
 }
-
-
-// exports.add_to_cart = function(req, res, next){
-//   const productId = req.params.id;
-//   const cart =  new Cart(req.session.cart ? req.session.cart : {});
-//   Product.findById(productId, function (err, product){
-//     if (err){
-//       return res.redirect ('/');
-//     }
-//     cart.add(product, product.id);
-//     req.session.cart = cart;
-//     console.log(req.session.cart);
-//     res.redirect('/');
-//   });
-// };
-
-// exports.add_to_cart =  (req, res, next)=>{
-//   const id = req.params.productId;
-//   const cart =  new Cart(req.session.cart ? req.session.cart : {});
-//   Product.findById(id)
-//   .exec()
-//   .then(result => {
-//     cart.add(product = result.productId);
-//     req.session.cart = cart;
-//     console.log(req.session.cart);
-//     res.redirect('/');
-//   });
-//   };
-
-// exports.add_to_cart = (req, res, next) => {
-//   const productId = req.params.id;
-//   const cart = new Cart(req.session.cart ? req.session.cart : {});
-//   Product.findById(productId)
-//     .exec()
-//     .then(result => {
-//       console.log("From database");
-//       cart.add({
-//         product : result.productId});
-//       req.session.cart = cart;
-//       console.log(req.session.cart);
-//       res.redirect('/');
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ error: err });
-//     });
-// }
-
-// exports.add_to_cart = (req, res, next) => {
-//   const cart = new Cart(req.session.cart ? req.session.cart : {});
-//   Product.findById(req.params.productId)
-//     .then(product => {
-//       if(!product) {
-//         return res.status(404).json({
-//           message: "Product not found"
-//         });
-//       } else {
-//       cart.add({
-//         product : req.body.productId,
-//         qty : req.body.quantity,
-//         price : req.body.price
-//       });
-//       req.session.cart = cart;
-//       console.log(req.session.cart);
-//       res.redirect('/');
-//     }})
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ error: err });
-//     });
-// }
-
-// exports.add_to_cart = (req, res, next) => {
-//   const cart = new Cart(req.session.cart ? req.session.cart : {});
-//   Product.findById(req.params.productId)
-//     .exec()
-//     .then(product => {
-//       if (!product) {
-//         return res.status(404).json({
-//           message: 'Product not found'
-//         });
-//       }
-//       cart.add({
-//         product: req.body.productId,
-//         qty: req.body.quantity,
-//         price: req.body.price
-//       });
-//       req.session.cart = cart;
-//       console.log(req.session.cart);
-//       res.redirect('/');
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ error: err });
-//     });
-// }
-
-// exports.shoppingcart = (req, res, next) => {
-//   if (!req.session.cart) {
-//     return res.render('/shopping-cart', { products: null });
-//   }
-//   var cart = new Cart(req.session.cart);
-//   res.render('/shopping-cart', { products: cart.generateArray(), totalPrice: cart.totalPrice });
-// }
