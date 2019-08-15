@@ -24,12 +24,12 @@ mongoose.Promise = global.Promise;
 const productRoutes = require('./api/routes/products');
 const serviceRoutes = require('./api/routes/services');
 const orderRoutes = require('./api/routes/orders');
-const userRoutes = require('./api/routes/users');
+// const userRoutes = require('./api/routes/users');
 const signupRoutes = require('./api/routes/signup');
 const loginRoutes = require('./api/routes/login');
 const cartRoutes = require('./api/routes/cart');
 const blogRoutes = require('./api/routes/blogs');
-const contackjh tRoutes = require('./api/routes/contacts');
+const contactRoutes = require('./api/routes/contacts');
 
 
 
@@ -85,7 +85,7 @@ app.use((req, res, next) => {
 app.use('/products', productRoutes);
 app.use('/services', serviceRoutes);
 app.use('/orders', orderRoutes);
-app.use('/users', userRoutes);
+// app.use('/users', userRoutes);
 app.use('/user/signup', signupRoutes);
 app.use('/user/login', loginRoutes);
 app.use('/cart', cartRoutes);
