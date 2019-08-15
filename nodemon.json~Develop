@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGO_ATLAS_PW": "cj030686",
+        "TOKEN_SECRET": "Abundantlife",
+        "secret": "abun"
+    }
+}
