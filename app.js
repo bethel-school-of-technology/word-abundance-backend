@@ -1,21 +1,35 @@
 var createError = require('http-errors');
 var express = require('express');
+const dotenv = require('dotenv');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 const mongoose = require('mongoose');
-const session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+//const session = require('express-session');
+//var MongoStore = require('connect-mongo')(session);
 
+// Enviroment Variables
+dotenv.config();
 
-mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '@abundant-2iz3d.mongodb.net/test?retryWrites=true&w=majority',
+// Connect to DB
+
+mongoose.connect(process.env.DB_CONNECT, {
+  promiseLibrary: require('bluebird'),
+  useNewUrlParser: true,
+  useFindAndModify: false
+})
+.then(() => console.log('connection successful'))
+.catch((err) => console.error(err));
+mongoose.Promise = global.Promise;
+
+/* mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '@abundant-2iz3d.mongodb.net/test?retryWrites=true&w=majority',
   { promiseLibrary: require('bluebird'),
     useNewUrlParser: true,
     useFindAndModify: false})
   .then(() =>  console.log('connection successful'))
   .catch((err) => console.error(err))
-mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise; */
 
 
 // var indexRouter = require('./routes/index');
@@ -54,14 +68,14 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
+/* app.use(session({
   secret: 'abun',
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   cookie: { maxAge: 180 * 60 * 1000}
 }));
-
+ */
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     res.locals.session = req.session;
@@ -86,8 +100,8 @@ app.use('/products', productRoutes);
 app.use('/services', serviceRoutes);
 app.use('/orders', orderRoutes);
 // app.use('/users', userRoutes);
-app.use('/user/signup', signupRoutes);
-app.use('/user/login', loginRoutes);
+app.use('/signup', signupRoutes);
+app.use('/login', loginRoutes);
 app.use('/cart', cartRoutes);
 app.use('/blogs', blogRoutes);
 app.use('/contacts', contactRoutes);
