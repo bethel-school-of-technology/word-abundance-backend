@@ -1,19 +1,16 @@
-var createError = require('http-errors');
-var express = require('express');
+const createError = require('http-errors');
+const express = require('express');
 const dotenv = require('dotenv');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
 const mongoose = require('mongoose');
-//const session = require('express-session');
-//var MongoStore = require('connect-mongo')(session);
 
 // Enviroment Variables
 dotenv.config();
 
 // Connect to DB
-
 mongoose.connect(process.env.DB_CONNECT, {
   promiseLibrary: require('bluebird'),
   useNewUrlParser: true,
@@ -23,13 +20,6 @@ mongoose.connect(process.env.DB_CONNECT, {
 .catch((err) => console.error(err));
 mongoose.Promise = global.Promise;
 
-/* mongoose.connect('mongodb+srv://joelfernandez:' + process.env.MONGO_ATLAS_PW + '@abundant-2iz3d.mongodb.net/test?retryWrites=true&w=majority',
-  { promiseLibrary: require('bluebird'),
-    useNewUrlParser: true,
-    useFindAndModify: false})
-  .then(() =>  console.log('connection successful'))
-  .catch((err) => console.error(err))
-mongoose.Promise = global.Promise; */
 
 
 // var indexRouter = require('./routes/index');
@@ -45,11 +35,9 @@ const cartRoutes = require('./api/routes/cart');
 const blogRoutes = require('./api/routes/blogs');
 const contactRoutes = require('./api/routes/contacts');
 
-
-
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-var app = express();
+const app = express();
 
 
 // view engine setup
@@ -68,15 +56,6 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-/* app.use(session({
-  secret: 'abun',
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 180 * 60 * 1000}
-}));
- */
-// app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     res.locals.session = req.session;
     next();
@@ -105,12 +84,6 @@ app.use('/login', loginRoutes);
 app.use('/cart', cartRoutes);
 app.use('/blogs', blogRoutes);
 app.use('/contacts', contactRoutes);
-
-
-
-
-
-
 
 
 // catch 404 and forward to error handler
